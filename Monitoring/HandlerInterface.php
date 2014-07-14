@@ -2,5 +2,5 @@
 
 namespace Monitoring;
 
-interface AdapterInterface
+interface HandlerInterface
 {}

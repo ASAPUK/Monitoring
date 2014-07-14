@@ -10,27 +10,13 @@ function dd($a = null){
     var_dump($a);
     echo '</pre>';
 }
-function include_all_php($folder)
+function __autoload($class)
 {
-    foreach (glob("{$folder}/*.php") as $filename) {
-        if ( file_exists($filename) ){
-            dd($filename);
-            include_once $filename;
-        }
-    }
+    $parts = explode('\\', $class);
+    require implode('/', $parts) . '.php';
 }
-dd(1);
-include_all_php('monitoring');
-dd(2);
-include_all_php('monitoring/State');
-
-include 'monitoring/State/StateAbstract.php';
 /******************************************************/
-
-
+//require_once 'sdfsdf.ds';
 $config = include 'config.php';
-//
-//$adapter   = new Monitoring\AlertAdapter();
-//$stateList = new Monitoring\AlertStateList( $adapter, $config );
-//
-//$stateList->verifyError();
+
+new Monitoring\Alerts($config);
