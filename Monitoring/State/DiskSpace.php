@@ -2,7 +2,12 @@
 
 namespace Monitoring\State;
 
-
+/**
+ * Check Disk Space
+ *
+ * Class DiskSpace
+ * @package Monitoring\State
+ */
 class DiskSpace extends StateAbstract
 {
     const DISK_SPACE = 'min_disk_space';

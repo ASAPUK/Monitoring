@@ -6,13 +6,15 @@ return array(
         array(
             'class'  => 'Monitoring\Handler\Log',
             'params' => array(
-
+                'path'  => __DIR__ . '/Monitoring/Log/error.log'
             )
         ),
         array(
             'class'  => 'Monitoring\Handler\SendEmail',
             'params' => array(
-
+                'to'       => 'test@mail.ru',
+                'subject'  => 'Test',
+                'from'     => 'test2@mail.ru',
             )
         ),
     ),

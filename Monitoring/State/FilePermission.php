@@ -2,7 +2,12 @@
 
 namespace Monitoring\State;
 
-
+/**
+ * Check file permissions
+ *
+ * Class FilePermission
+ * @package Monitoring\State
+ */
 class FilePermission extends StateAbstract
 {
     const FILES = 'files';

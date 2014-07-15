@@ -2,7 +2,12 @@
 
 namespace Monitoring\State;
 
-
+/**
+ * Check CPU working
+ *
+ * Class CPU
+ * @package Monitoring\State
+ */
 class CPU extends StateAbstract
 {
     const CPU_PROCESS_NUMBER = 'max_cpu_process_number';

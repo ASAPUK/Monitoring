@@ -2,7 +2,13 @@
 
 namespace Monitoring\State;
 
-
+/**
+ *
+ * Check memory working
+ *
+ * Class Memory
+ * @package Monitoring\State
+ */
 class Memory extends StateAbstract
 {
     const MEMORY_USAGE = 'max_memory_usage';

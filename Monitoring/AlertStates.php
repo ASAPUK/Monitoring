@@ -8,12 +8,12 @@ use Monitoring\State\StateFactory;
 use Monitoring\Handler\HandlerInterface;
 
 /**
- * Gathering all states. Working like Strategy
+ * Collect States and delegate to each State evens
  *
  * Class AlertStateList
  * @package Monitoring
  */
-class AlertStateList extends StateAbstract
+class AlertStates extends StateAbstract
 {
     /**
      * @var HandlerInterface
@@ -34,7 +34,7 @@ class AlertStateList extends StateAbstract
 
         if ( count($states) > 0 ) {
             foreach ($states as $stateConfig) {
-                $state = StateFactory::getInstance()->createStateByConfig( $this->_handler, $stateConfig );
+                $state = StateFactory::getInstance()->createByConfig( $this->_handler, $stateConfig );
                 if ( $state instanceof StateInterface ) {
                     $this->addState( $state );
                 }

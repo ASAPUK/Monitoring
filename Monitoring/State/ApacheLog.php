@@ -2,7 +2,12 @@
 
 namespace Monitoring\State;
 
-
+/**
+ * Check apache log on errors
+ *
+ * Class ApacheLog
+ * @package Monitoring\State
+ */
 class ApacheLog extends StateAbstract
 {
     const PATH  = 'path';

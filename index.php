@@ -16,7 +16,11 @@ function __autoload($class)
     require implode('/', $parts) . '.php';
 }
 /******************************************************/
-//require_once 'sdfsdf.ds';
 $config = include 'config.php';
 
-new Monitoring\Alerts($config);
+try{
+    new Monitoring\Monitoring($config);
+} catch (\Monitoring\MonitoringException $e) {
+    print_r( $e->getMessage() );
+    die;
+}

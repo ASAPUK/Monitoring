@@ -2,7 +2,11 @@
 
 namespace Monitoring\State;
 
-
+// TODO: Not working
+/**
+ * Class MysqlLog
+ * @package Monitoring\State
+ */
 class MysqlLog extends StateAbstract
 {
     const PATH  = 'path';
