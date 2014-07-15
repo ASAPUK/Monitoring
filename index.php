@@ -24,3 +24,5 @@ try{
     print_r( $e->getMessage() );
     die;
 }
+
+echo 'ok';
