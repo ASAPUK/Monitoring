@@ -2,7 +2,6 @@
 
 namespace Monitoring\Handler;
 
-use YiiMailer;
 /**
  * Send email with errors
  *
@@ -26,7 +25,7 @@ class SendEmailYii extends HandlerAbstract
 
         if ( !empty($to) || !empty($subject) || !empty($message) || !empty($fromEmail) || !empty($fromName) ) return;
 
-        $mail = new YiiMailer();
+        $mail = Yii::app()->mail;
 
         $mail->setFrom($fromEmail, $fromName);
         $mail->setTo($to);
