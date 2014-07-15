@@ -8,12 +8,13 @@ namespace Monitoring\Handler;
  * Class SendEmail
  * @package Monitoring\Handler
  */
-class SendEmailYii extends HandlerAbstract
+class SendEmail extends HandlerAbstract
 {
     CONST TO         = 'to';
     CONST SUBJECT    = 'subject';
     CONST FROM_EMAIL = 'from_email';
     CONST FROM_NAME  = 'from_name';
+    CONST REPLY      = 'reply_to';
 
     public function handleErrors()
     {
@@ -22,16 +23,17 @@ class SendEmailYii extends HandlerAbstract
         $message   = $this->generateText();
         $fromEmail = $this->getParam(self::FROM_EMAIL);
         $fromName  = $this->getParam(self::FROM_NAME);
+        $reply     = $this->getParam(self::REPLY);
 
-        if ( !empty($to) || !empty($subject) || !empty($message) || !empty($fromEmail) || !empty($fromName) ) return;
+        if ( empty($reply) || empty($to) || empty($subject) || empty($message) || empty($fromEmail) || empty($fromName) ) return;
 
-        $mail = Yii::app()->mail;
+        $headers = "From: {$fromEmail} \r\n" ;
+        if ($reply) {
+            $headers .= "Reply-To: {$reply} \r\n";
+        }
+        $headers .= "Content-type: text/html";
 
-        $mail->setFrom($fromEmail, $fromName);
-        $mail->setTo($to);
-        $mail->setSubject($subject);
-        $mail->setBody($message);
-        $mail->send();
+        mail($to, $subject, $message, $headers);
     }
 
     private function generateText()
