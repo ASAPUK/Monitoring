@@ -32,7 +32,7 @@ class Log extends HandlerAbstract
     private function createDirIfNotExist($file)
     {
         if( !file_exists(dirname($file)) ) {
-            mkdir(dirname($file), 0777);
+            mkdir(dirname($file), 0777, true);
         }
     }
 
