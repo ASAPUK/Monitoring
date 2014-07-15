@@ -1,0 +1,28 @@
+{
+    "name": "compare/monitoring",
+    "type": "library",
+    "description": "Monitoring system working",
+    "keywords": [
+        "monitoring",
+        "compare"
+    ],
+    "homepage": "http://www.idealprice.co.uk/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Miroshnikov",
+            "email": "hyperxai@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "Monitoring\\": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "v1.0"
+        }
+    }
+}
