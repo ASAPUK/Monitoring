@@ -52,6 +52,9 @@ class SendEmail extends HandlerAbstract
 
     public function handleErrors()
     {
+        $message = $this->generateText();
+        if (empty($message)) return;
+
         $mail = new PHPMailer;
 
         $mail->isSMTP();
@@ -75,7 +78,7 @@ class SendEmail extends HandlerAbstract
         $mail->isHTML( $this->getParam(self::IS_HTML) );
 
         $mail->Subject = $this->getParam(self::SUBJECT);
-        $mail->Body    = $this->generateText();
+        $mail->Body    = $message;
 
         if(!$mail->send()) {
             echo 'Message could not be sent.';
