@@ -52,9 +52,10 @@ class SendEmail extends HandlerAbstract
 
     public function handleErrors()
     {
+        $debug = false;
         $message = $this->generateText();
         if (empty($message)) {
-            echo 'Nothing to send';
+            if ($debug) echo 'Nothing to send';
             return;
         }
 
@@ -83,13 +84,17 @@ class SendEmail extends HandlerAbstract
         $mail->Subject = $this->getParam(self::SUBJECT);
         $mail->Body    = $message;
 
-        if(!$mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        if ($debug) {
+            if(!$mail->send()) {
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                echo 'Message has been sent to mail: "' . $this->getParam(self::TO_EMAIL) .'"';
+            }
+            echo "\n";
         } else {
-            echo 'Message has been sent to mail: "' . $this->getParam(self::TO_EMAIL) .'"';
+            $mail->send();
         }
-        echo "\n";
     }
 
     private function generateText()
