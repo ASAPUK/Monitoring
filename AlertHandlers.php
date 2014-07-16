@@ -27,6 +27,7 @@ class AlertHandlers extends HandlerAbstract
             foreach ($config as $handlerConfig) {
                 $handler = HandlerFactory::getInstance()->createByConfig( $handlerConfig );
                 if ( $handler instanceof HandlerInterface ) {
+                    echo "Add handler" . get_class($handler). "\n";
                     $this->attach( $handler );
                 }
             }
@@ -61,6 +62,7 @@ class AlertHandlers extends HandlerAbstract
         if ( $this->count() > 0 ) {
             foreach( $this->getStorage() as $handler) {
                 if ($handler instanceof HandlerInterface) {
+                    echo "Handle error" . get_class($handler). "\n";
                     $handler->handleErrors();
                 }
             }

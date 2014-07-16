@@ -53,7 +53,10 @@ class SendEmail extends HandlerAbstract
     public function handleErrors()
     {
         $message = $this->generateText();
-        if (empty($message)) return;
+        if (empty($message)) {
+            echo 'Nothing to send';
+            return;
+        }
 
         $mail = new PHPMailer;
 
