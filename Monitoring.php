@@ -4,30 +4,37 @@ namespace Monitoring;
 
 class Monitoring
 {
+    const HANDLERS = 'handlers';
+    const STATES   = 'states';
+
     /**
      * @param array $config
+     * @param string $handlerConfig
+     * @param string $stateConfig
      */
-    public function __construct( $config = array() )
+    public function __construct( $config = array(), $handlerConfig = self::HANDLERS, $stateConfig = self::STATES )
     {
         $this->_config = $config;
-        $this->monitoring();
+        $this->monitoring($handlerConfig, $stateConfig);
     }
 
     /**
+     * @param string $handlerConfig
+     * @param string $stateConfig
      * @throws MonitoringException
      */
-    public function monitoring()
+    public function monitoring( $handlerConfig = self::HANDLERS, $stateConfig = self::STATES )
     {
-        if (!isset($this->_config['handlers'])) {
+        if (!isset($this->_config[$handlerConfig])) {
             throw new MonitoringException('Should set `handler` config');
         }
 
-        if (!isset($this->_config['states'])) {
+        if (!isset($this->_config[$stateConfig])) {
             throw new MonitoringException('Should set `states` config');
         }
 
-        $handler   = new AlertHandlers( $this->_config['handlers'] );
-        $stateList = new AlertStates( $handler, $this->_config['states'] );
+        $handler   = new AlertHandlers( $this->_config[$handlerConfig] );
+        $stateList = new AlertStates( $handler, $this->_config[$stateConfig] );
 
         $stateList->verifyError();
     }
