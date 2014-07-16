@@ -33,21 +33,21 @@ class SendEmail extends HandlerAbstract
     CONST SUBJECT     = 'subject';
 
     protected $_default = array(
-        self::HOST => 'smtp1.example.com',
-        self::USERNAME => 'user@example.com',
-        self::PASSWORD => 'secret',
-        self::SMTP_SECURE => 'tls',
-        self::TO_EMAIL => 'joe@example.net',
-        self::TO_NAME => 'Joe User',
-        self::FROM_EMAIL => 'from@example.com',
-        self::FROM_NAME => 'Mailer',
-        self::CC => 'cc@example.com',
-        self::BCC => 'bcc@example.com',
-        self::REPLY_TO => 'info@example.com',
-        self::REPLY_TITLE => 'Information',
-        self::WORLD_WRAP => 50,
-        self::IS_HTML => true,
-        self::SUBJECT => 'tls'
+        self::HOST          => 'smtp1.example.com',
+        self::USERNAME      => 'user@example.com',
+        self::PASSWORD      => 'secret',
+        self::SMTP_SECURE   => 'tls',
+        self::TO_EMAIL      => 'joe@example.net',
+        self::TO_NAME       => 'Joe User',
+        self::FROM_EMAIL    => 'from@example.com',
+        self::FROM_NAME     => 'Mailer',
+        self::CC            => 'cc@example.com',
+        self::BCC           => 'bcc@example.com',
+        self::REPLY_TO      => 'info@example.com',
+        self::REPLY_TITLE   => 'Information',
+        self::WORLD_WRAP    => 50,
+        self::IS_HTML       => true,
+        self::SUBJECT       => 'tls'
     );
 
     public function handleErrors()
