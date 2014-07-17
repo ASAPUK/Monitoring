@@ -117,7 +117,7 @@ class AlertHandlers extends HandlerAbstract
     public function isUniqueMessage($msg, $type)
     {
         if ($this->_duplicat != null) {
-            $this->_duplicat->check($msg, $type);
+            return $this->_duplicat->check($msg, $type);
         }
 
         return true;
