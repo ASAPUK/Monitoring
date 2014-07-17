@@ -75,7 +75,9 @@ class AlertHandlers extends HandlerAbstract
         if ( $this->count() > 0 ) {
             foreach( $this->getStorage() as $handler) {
                 if ($handler instanceof HandlerInterface) {
-                    $handler->addErrorHandle($errorText, $date, $type);
+                    if ($this->isUniqueMessage($errorText, $type)){
+                        $handler->addErrorHandle($errorText, $date, $type);
+                    }
                 }
             }
         }
@@ -108,5 +110,18 @@ class AlertHandlers extends HandlerAbstract
     public function detach( HandlerInterface $handler )
     {
         $this->getStorage()->detach($handler);
+    }
+
+    public function isUniqueMessage($msg, $type)
+    {
+        if (!isset($this->_config['duplicate'])) return true;
+
+        $checkDuplicate = $this->getCheckDuplicate();
+        $checkDuplicate->check($msg, $type);
+    }
+
+    private function getCheckDuplicate()
+    {
+        return isset($this->_duplicate) ? $this->_duplicate : new CheckDuplicate( $this->_config['duplicate'] );
     }
 }
