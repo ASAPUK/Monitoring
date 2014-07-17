@@ -12,8 +12,13 @@ class DBConnection extends StateAbstract
 
     public function verifyError()
     {
-        $mysqlConnection = mysql_connect($this->getParam(self::SERVER), $this->getParam(self::USERNAME), $this->getParam(self::PASSWORD));
-        if (!$mysqlConnection) {
+        @$mysqlConnection = mysql_connect(
+            $this->getParam(self::SERVER),
+            $this->getParam(self::USERNAME),
+            $this->getParam(self::PASSWORD)
+        );
+
+        if(!$mysqlConnection) {
             $this->getHandler()->addErrorHandle(
                 "No Mysql Connection",
                 time(),
