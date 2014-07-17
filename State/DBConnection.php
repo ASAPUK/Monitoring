@@ -2,8 +2,6 @@
 
 namespace Monitoring\State;
 
-use Monitoring\State\StateAbstract;
-
 class DBConnection extends StateAbstract
 {
     const STATE_TYPE = 'DataBase';
