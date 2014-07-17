@@ -4,7 +4,7 @@ namespace Monitoring\State;
 
 class FeedLog extends StateAbstract
 {
-    const STATE_TYPE     = 'Feed Error';
+    const STATE_TYPE     = 'FeedLog';
     const PATH           = 'path';
     const IS_REMOVE_FILE = 'is_remove_file';
 

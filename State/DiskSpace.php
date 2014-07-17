@@ -10,7 +10,7 @@ namespace Monitoring\State;
  */
 class DiskSpace extends StateAbstract
 {
-    const STATE_TYPE = 'Disk Space Error';
+    const STATE_TYPE = 'Disk Space';
     const DISK_SPACE = 'min_disk_space';
 
     const TYPE         = 'type';

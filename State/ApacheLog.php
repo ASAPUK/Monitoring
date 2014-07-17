@@ -52,15 +52,10 @@ class ApacheLog extends StateAbstract
 
                 $type = $this->getParam(self::TYPE);
                 if (is_array($type) && in_array($line['type'], $type) && time() - $line['data'] < $this->getParam(self::TIME)) {
-                    $this->getHandler()->addErrorHandle( "{$line['text']}", $line['data'], $this->getStateType($line['type']) );
+                    $this->getHandler()->addErrorHandle( "{$line['text']}", $line['data'], $this->getStateType() );
                 }
             }
         }
-    }
-
-    public function getStateType($type = 'error')
-    {
-        return $this::STATE_TYPE . ' ' . $type;
     }
 
     private function getApacheLogPath()

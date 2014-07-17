@@ -10,7 +10,7 @@ namespace Monitoring\State;
  */
 class FilePermission extends StateAbstract
 {
-    const STATE_TYPE = 'File Permission Error';
+    const STATE_TYPE = 'FilePermission';
     const FILES      = 'files';
     const FILE_PATH  = 'path';
     const FILE_PERMS = 'perms';
