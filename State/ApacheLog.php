@@ -26,7 +26,11 @@ class ApacheLog extends StateAbstract
     {
         $apacheLogFilePath = $this->getApacheLogPath();
         if ( !file_exists($apacheLogFilePath) ) {
-            $this->getHandler()->addErrorHandle( "error.log was not found in '{$apacheLogFilePath}'" );
+            $this->getHandler()->addErrorHandle(
+                "error.log was not found in '{$apacheLogFilePath}'",
+                time(),
+                $this->getStateType()
+            );
             return;
         }
 

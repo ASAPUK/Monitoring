@@ -69,7 +69,7 @@ abstract class StateAbstract implements StateInterface
      */
     public function defined( $constantName )
     {
-        return defined(sprintf('self::%s', $constantName));
+        return defined(sprintf('static::%s', $constantName));
     }
 
     /**
