@@ -32,7 +32,7 @@ class FeedLog extends StateAbstract
 
             // Send Message
             foreach ($errors as $error) {
-                $this->getHandler()->addErrorHandle( "Feed log error: '{$error['m']}'", $error['d']  );
+                $this->getHandler()->addErrorHandle( "Feed log error: '{$error['m']}'", $error['d'], $this->getStateType()  );
             }
         }
 

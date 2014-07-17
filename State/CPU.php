@@ -22,13 +22,8 @@ class CPU extends StateAbstract
         $CPUProcessNumber = $this->getMaxCPUProcessNumbers();
 
         if ($load[0] > $CPUProcessNumber ) {
-            $this->getHandler()->addErrorHandle( "Current CPU process number is {$load[0]}, when allowed is {$CPUProcessNumber}", time(), 'CPU Error' );
+            $this->getHandler()->addErrorHandle( "Current CPU process number is {$load[0]}, when allowed is {$CPUProcessNumber}", time(), $this->getStateType() );
         }
-    }
-
-    public function getStateType()
-    {
-
     }
 
     private function getMaxCPUProcessNumbers()

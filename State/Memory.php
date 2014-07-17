@@ -46,10 +46,18 @@ class Memory extends StateAbstract
         $memoryUsageMax = $this->getMaxMemoryUsage();
         $memoryFreeMin  = $this->getMinFreeMemory();
         if ( $result['used'] > $memoryUsageMax ) {
-            $this->getHandler()->addErrorHandle( "Current Memory Usage is {$result['used']}{$type}, when allowed is {$memoryUsageMax}{$type}" );
+            $this->getHandler()->addErrorHandle(
+                "Current Memory Usage is {$result['used']}{$type}, when allowed is {$memoryUsageMax}{$type}",
+                time(),
+                $this->getStateType()
+            );
         }
         if ( $result['free'] < $memoryFreeMin ) {
-            $this->getHandler()->addErrorHandle( "Current Memory Free is {$result['free']}{$type}, when allowed is {$memoryFreeMin}{$type}" );
+            $this->getHandler()->addErrorHandle(
+                "Current Memory Free is {$result['free']}{$type}, when allowed is {$memoryFreeMin}{$type}",
+                time(),
+                $this->getStateType()
+            );
         }
     }
 

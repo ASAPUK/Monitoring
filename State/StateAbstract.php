@@ -62,11 +62,22 @@ abstract class StateAbstract implements StateInterface
     }
 
     /**
+     * Check if const defined
+     *
+     * @param string $constantName
+     * @return bool
+     */
+    public function defined( $constantName )
+    {
+        return defined(sprintf('self::%s', $constantName));
+    }
+
+    /**
      * @return string
      */
     public function getStateType()
     {
-        if (isset($this::STATE_TYPE)) {
+        if ($this->defined('STATE_TYPE')) {
             return $this::STATE_TYPE;
         }
 
