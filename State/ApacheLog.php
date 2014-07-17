@@ -60,7 +60,7 @@ class ApacheLog extends StateAbstract
 
     public function getStateType($type = 'error')
     {
-        return $this::STATE_TYPE . '' . $type;
+        return $this::STATE_TYPE . ' ' . $type;
     }
 
     private function getApacheLogPath()

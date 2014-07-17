@@ -42,7 +42,7 @@ class Log extends HandlerAbstract
 
         $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ]' . "\n";
         foreach( $this->getErrors() as $error) {
-            $text .= (isset($error['t']) ? $error['t'].':' : '') .  $error['m'] . "\n";
+            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\n";
         }
         $text .= "\n";
 
