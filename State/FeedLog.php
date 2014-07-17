@@ -4,7 +4,7 @@ namespace Monitoring\State;
 
 class FeedLog extends StateAbstract
 {
-    const STATE_TYPE     = 'Feed Log Error';
+    const STATE_TYPE     = 'Feed Error';
     const PATH           = 'path';
     const IS_REMOVE_FILE = 'is_remove_file';
 
@@ -32,7 +32,7 @@ class FeedLog extends StateAbstract
 
             // Send Message
             foreach ($errors as $error) {
-                $this->getHandler()->addErrorHandle( "Feed log error: '{$error['m']}'", $error['d'], $this->getStateType()  );
+                $this->getHandler()->addErrorHandle( $error['m'], $error['d'], $this->getStateType()  );
             }
         }
 
