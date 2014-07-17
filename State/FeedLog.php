@@ -4,6 +4,7 @@ namespace Monitoring\State;
 
 class FeedLog extends StateAbstract
 {
+    const STATE_TYPE     = 'Feed Log Error';
     const PATH           = 'path';
     const IS_REMOVE_FILE = 'is_remove_file';
 
@@ -25,8 +26,8 @@ class FeedLog extends StateAbstract
             // Remove duplicate errors
             $errors = array();
             foreach( $xml as $line ) {
-                $errors[$line->hash]['m'] = $line->message;
-                $errors[$line->hash]['d'] = $line->date;
+                $errors[(string)$line->hash]['m'] = (string)$line->message;
+                $errors[(string)$line->hash]['d'] = (string)$line->date;
             }
 
             // Send Message

@@ -61,5 +61,17 @@ abstract class StateAbstract implements StateInterface
         return $this->_handler;
     }
 
+    /**
+     * @return string
+     */
+    public function getStateType()
+    {
+        if (isset($this::STATE_TYPE)) {
+            return $this::STATE_TYPE;
+        }
+
+        return get_class($this);
+    }
+
     abstract public function verifyError();
 }

@@ -16,4 +16,11 @@ interface StateInterface
      * Verify event on errors
      */
     public function verifyError();
+
+    /**
+     * Name of state, for identity errors
+     *
+     * @return string
+     */
+    public function getStateType();
 }

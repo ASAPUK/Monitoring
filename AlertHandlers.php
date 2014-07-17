@@ -70,12 +70,12 @@ class AlertHandlers extends HandlerAbstract
     /**
      * Delegate to each Handlers
      */
-    public function addErrorHandle($errorText, $data = null)
+    public function addErrorHandle($errorText, $date = null, $type = null)
     {
         if ( $this->count() > 0 ) {
             foreach( $this->getStorage() as $handler) {
                 if ($handler instanceof HandlerInterface) {
-                    $handler->addErrorHandle($errorText, $data);
+                    $handler->addErrorHandle($errorText, $date, $type);
                 }
             }
         }

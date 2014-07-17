@@ -13,9 +13,10 @@ interface HandlerInterface
      * Add error to storage
      *
      * @param string $errorText
-     * @param null $data
+     * @param null|int $time - error time UNIX
+     * @param null|string $type - type of error
      */
-    public function addErrorHandle($errorText, $data = null);
+    public function addErrorHandle($errorText, $time = null, $type = null);
 
     /**
      * Errors working

@@ -11,6 +11,7 @@ namespace Monitoring\State;
  */
 class Memory extends StateAbstract
 {
+    const STATE_TYPE   = 'Memory Error';
     const MEMORY_USAGE = 'max_memory_usage';
     const MEMORY_FREE  = 'min_memory_free';
 

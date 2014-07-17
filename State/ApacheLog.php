@@ -10,6 +10,7 @@ namespace Monitoring\State;
  */
 class ApacheLog extends StateAbstract
 {
+    const STATE_TYPE  = 'Apache';
     const PATH  = 'path';
     const COUNT = 'count';
     const TIME  = 'time';
@@ -25,7 +26,7 @@ class ApacheLog extends StateAbstract
     {
         $apacheLogFilePath = $this->getApacheLogPath();
         if ( !file_exists($apacheLogFilePath) ) {
-            $this->getHandler()->addErrorHandle( "Apache error.log was not found in '{$apacheLogFilePath}'" );
+            $this->getHandler()->addErrorHandle( "error.log was not found in '{$apacheLogFilePath}'" );
             return;
         }
 
@@ -47,10 +48,15 @@ class ApacheLog extends StateAbstract
 
                 $type = $this->getParam(self::TYPE);
                 if (is_array($type) && in_array($line['type'], $type) && time() - $line['data'] < $this->getParam(self::TIME)) {
-                    $this->getHandler()->addErrorHandle( "Apache log {$line['type']}: '{$line['text']}'", $line['data'] );
+                    $this->getHandler()->addErrorHandle( "{$line['text']}", $line['data'], $this->getStateType($line['type']) );
                 }
             }
         }
+    }
+
+    public function getStateType($type = 'error')
+    {
+        return $this::STATE_TYPE . '' . $type;
     }
 
     private function getApacheLogPath()

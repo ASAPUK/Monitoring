@@ -10,6 +10,7 @@ namespace Monitoring\State;
  */
 class CPU extends StateAbstract
 {
+    const STATE_TYPE         = 'CPU Error';
     const CPU_PROCESS_NUMBER = 'max_cpu_process_number';
     protected $_default = array(
         self::CPU_PROCESS_NUMBER => 80
@@ -21,8 +22,13 @@ class CPU extends StateAbstract
         $CPUProcessNumber = $this->getMaxCPUProcessNumbers();
 
         if ($load[0] > $CPUProcessNumber ) {
-            $this->getHandler()->addErrorHandle( "Current CPU process number is {$load[0]}, when allowed is {$CPUProcessNumber}" );
+            $this->getHandler()->addErrorHandle( "Current CPU process number is {$load[0]}, when allowed is {$CPUProcessNumber}", time(), 'CPU Error' );
         }
+    }
+
+    public function getStateType()
+    {
+
     }
 
     private function getMaxCPUProcessNumbers()

@@ -9,6 +9,7 @@ namespace Monitoring\State;
  */
 class MysqlLog extends StateAbstract
 {
+    const STATE_TYPE = 'MYSQL Log Error';
     const PATH  = 'path';
     const COUNT = 'count';
     const TIME  = 'time';
