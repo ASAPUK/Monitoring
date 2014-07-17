@@ -17,11 +17,13 @@ class AlertHandlers extends HandlerAbstract
 {
     /**
      * @param array $config
+     * @param CheckDuplicate $duplicate
      */
-    public function __construct($config = array())
+    public function __construct($config = array(), CheckDuplicate $duplicate = null)
     {
         $this->_config = $config;
         $this->_storage = new SplObjectStorage();
+        $this->_duplicat = $duplicate;
 
         if ( count($config) > 0 ) {
             foreach ($config as $handlerConfig) {
@@ -114,14 +116,10 @@ class AlertHandlers extends HandlerAbstract
 
     public function isUniqueMessage($msg, $type)
     {
-        if (!isset($this->_config['duplicate'])) return true;
+        if ($this->_duplicat != null) {
+            $this->_duplicat->check($msg, $type);
+        }
 
-        $checkDuplicate = $this->getCheckDuplicate();
-        $checkDuplicate->check($msg, $type);
-    }
-
-    private function getCheckDuplicate()
-    {
-        return isset($this->_duplicate) ? $this->_duplicate : new CheckDuplicate( $this->_config['duplicate'] );
+        return true;
     }
 }

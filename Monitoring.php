@@ -33,7 +33,12 @@ class Monitoring
             throw new MonitoringException('Should set `states` config');
         }
 
-        $handler   = new AlertHandlers( $this->_config[$handlerConfig] );
+        $duplicate = null;
+        if( $this->_config['duplicate'] ) {
+            $duplicate = new CheckDuplicate($this->_config['duplicate']);
+        }
+
+        $handler   = new AlertHandlers( $this->_config[$handlerConfig], $duplicate );
         $stateList = new AlertStates( $handler, $this->_config[$stateConfig] );
 
         $stateList->verifyError();
