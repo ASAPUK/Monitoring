@@ -1,6 +1,6 @@
 <?php
 
-namespace Monitoring;
+namespace Monitoring\State;
 
 use Monitoring\State\StateAbstract;
 
