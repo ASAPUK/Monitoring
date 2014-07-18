@@ -8,7 +8,7 @@ namespace Monitoring\State;
  * Class ApacheLog
  * @package Monitoring\State
  */
-class ApacheLog extends StateAbstract
+class AccessLog extends StateAbstract
 {
     const STATE_TYPE  = 'Apache';
     const PATH  = 'path';
@@ -33,6 +33,7 @@ class ApacheLog extends StateAbstract
             $entry = $parser->parse($line);
             dd($entry);
         }
+        d('sd');
 
 
         if ( !file_exists($apacheLogFilePath) ) {
