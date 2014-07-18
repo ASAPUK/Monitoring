@@ -17,7 +17,8 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "phpmailer/phpmailer" : "*"
+        "phpmailer/phpmailer" : "*",
+        "kassner/log-parser" : "*"
     },
     "autoload": {
         "psr-4": { "Monitoring\\": "/" }
