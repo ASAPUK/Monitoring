@@ -12,7 +12,7 @@ class CPU extends StateAbstract
 {
     const STATE_TYPE         = 'CPU';
     const CPU_PROCESS_NUMBER = 'max_cpu_process_number';
-    const TIME_TYPE          = 'time';
+    const TIME               = 'time';
     protected $_default = array(
         self::CPU_PROCESS_NUMBER => 80
     );
@@ -38,7 +38,7 @@ class CPU extends StateAbstract
 
     private function getTime()
     {
-        switch (self::TIME) {
+        switch ($this->getParam( self::TIME )) {
             case 1:
                 return 0;
                 break;
