@@ -39,7 +39,7 @@ class ApacheLog extends StateAbstract
         if (count($output) > 0) {
             foreach($output as $line) {
 
-                $pattern = '#^\[(.*)\]\s+\[(.*)\]\s+\[client (.*)\](.*?)#U';
+                $pattern = '#^\[(.*)\]\s+\[(.*)\]\s+\[(.*)\](.*?)#U';
                 preg_match($pattern, $line, $match);
                 if(count($match) != 5) continue;
 
