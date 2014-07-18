@@ -37,24 +37,27 @@ class Memory extends StateAbstract
         $result = array_combine ( $titles , $values );
 
         $type = '';
+        $used = $result['used'] - $result['buffers'] - $result['cached'];
+        $free = $result['total'] - $used;
         if ( $this->getParam( self::TYPE ) == self::TYPE_PERCENT ) {
             $type = '%';
-            $result['used'] = round(100 * $result['used'] / $result['total'], 2);
-            $result['free'] = round(100 * $result['free'] / $result['total'], 2);
+            $used = round(100 * $used / $result['total'], 2);
+            $free = round(100 * $free / $result['total'], 2);
         }
 
         $memoryUsageMax = $this->getMaxMemoryUsage();
         $memoryFreeMin  = $this->getMinFreeMemory();
-        if ( $result['used'] > $memoryUsageMax ) {
+
+        if ( $used > $memoryUsageMax ) {
             $this->getHandler()->addErrorHandle(
-                "Current Memory Usage is {$result['used']}{$type}, when allowed is {$memoryUsageMax}{$type}",
+                "Current Memory Usage is {$used}{$type}, when allowed is {$memoryUsageMax}{$type}",
                 time(),
                 $this->getStateType()
             );
         }
-        if ( $result['free'] < $memoryFreeMin ) {
+        if ( $free < $memoryFreeMin ) {
             $this->getHandler()->addErrorHandle(
-                "Current Memory Free is {$result['free']}{$type}, when allowed is {$memoryFreeMin}{$type}",
+                "Current Memory Free is {$free}{$type}, when allowed is {$memoryFreeMin}{$type}",
                 time(),
                 $this->getStateType()
             );
