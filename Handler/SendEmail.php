@@ -101,9 +101,9 @@ class SendEmail extends HandlerAbstract
     {
         if (count($this->getErrors()) == 0) return null;
 
-        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ]' . "\n";
+        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ]' . "</br>";
         foreach( $this->getErrors() as $error) {
-            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\n";
+            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "</br>";
         }
 
         return $text;
