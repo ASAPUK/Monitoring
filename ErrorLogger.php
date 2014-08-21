@@ -114,7 +114,9 @@ class ErrorLogger extends \Monitoring\Singleton
 
         while (!$file->eof()) {
             $current = $file->current();
-            if ( in_array($current[2], $types) ) {
+            $current = array_filter($current);
+
+            if ( !empty($current) && in_array($current[2], $types) ) {
                 $result[] = $current;
             }
             $file->next();
