@@ -71,7 +71,7 @@ class ErrorLogger extends \Monitoring\Singleton
         if (!$this->getEnabled()) return;
 
         $fp = fopen($this->getPath(), 'w');
-        fputcsv($fp, '');
+        fputcsv($fp, array());
         fclose($fp);
     }
 
@@ -116,7 +116,7 @@ class ErrorLogger extends \Monitoring\Singleton
             $current = $file->current();
             $current = array_filter($current);
 
-            if ( !empty($current) && in_array($current[2], $types) ) {
+            if ( !empty($current) && isset($current[2]) && in_array($current[2], $types) ) {
                 $result[] = $current;
             }
             $file->next();
