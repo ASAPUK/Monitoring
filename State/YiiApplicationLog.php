@@ -13,9 +13,13 @@ class YiiApplicationLog extends StateAbstract
     const STATE_TYPE = 'YiiApplication';
     const PATH       = 'path';
     const STATUS     = 'status';
+    const COUNT      = 'count';
+    const TIME       = 'time';
 
     protected $_default = array(
-        self::STATUS => array('error')
+        self::STATUS => array('error'),
+        self::COUNT  => 200,
+        self::TIME   => 3600
     );
 
     public function verifyError()
@@ -24,20 +28,36 @@ class YiiApplicationLog extends StateAbstract
         $allowedStatuses = $this->getParam(self::STATUS);
 
         if (!file_exists($path)) return;
-        $log = file_get_contents($path);
-        $log = explode('.-==-.', $log);
-        $log = array_reverse($log);
+        exec("tail -n {$this->getParam(self::COUNT)} {$path}", $tail);
 
+        if ( count($tail) == 0 ) return;
+
+        $log = $buffer = array();
+        foreach (array_reverse($tail) as $str) {
+            $buffer[] = $str;
+            if ( preg_match('#\d{4}/\d{2}/\d{2}#', $str) ) {
+                $log[] = implode("\r\n", array_reverse($buffer));
+                $buffer = array();
+            }
+        }
+
+        $allowedTime = $this->getParam(self::TIME);
         foreach ($log as $l) {
             $status = $this->showStatus($l);
+            $date   = strtotime($this->showDate($l));
 
-            if (in_array($status, $allowedStatuses)) {
-                $error = $this->showError($l);
-                $date  = strtotime($this->showDate($l));
+            if ( in_array($status, $allowedStatuses) && (time() - $date < $allowedTime) ) {
+                $error  = $this->showError($l) . $this->showStack($l);
 
                 $this->getHandler()->addErrorHandle( $error, $date, $this->getStateType() );
             }
         }
+    }
+
+    private function showStack($text)
+    {
+        $text = explode('Stack trace:', $text);
+        return @$text[1];
     }
 
     private function showDate($text)

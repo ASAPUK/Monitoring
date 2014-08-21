@@ -32,7 +32,20 @@ class Log extends HandlerAbstract
     private function createDirIfNotExist($file)
     {
         if( !file_exists(dirname($file)) ) {
-            mkdir(dirname($file), 0777, true);
+            $arr  = explode('/', dirname($file));
+            $curr = array();
+            foreach($arr as $val){
+                $arr  = explode('/', dirname($file));
+                $curr = array();
+                foreach($arr as $val){
+                    $curr[] = $val;
+                    $path = implode('/', $curr) . '/';
+                    if (!file_exists($path)) {
+                        mkdir($path, 0777);
+                        @chmod($path, 0777);
+                    }
+                }
+            }
         }
     }
 

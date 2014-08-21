@@ -41,8 +41,6 @@ class SendEmail extends HandlerAbstract
         self::TO_NAME       => 'Joe User',
         self::FROM_EMAIL    => 'from@example.com',
         self::FROM_NAME     => 'Mailer',
-        self::CC            => 'cc@example.com',
-        self::BCC           => 'bcc@example.com',
         self::REPLY_TO      => 'info@example.com',
         self::REPLY_TITLE   => 'Information',
         self::WORLD_WRAP    => 50,
@@ -54,9 +52,12 @@ class SendEmail extends HandlerAbstract
     {
         $debug = false;
         $message = $this->generateText();
-        if (empty($message)) {
-            if ($debug) echo 'Nothing to send';
-            return;
+//        if (empty($message)) {
+//            if ($debug) echo 'Nothing to send';
+//            return;
+//        }
+        if ($this->getParam(self::IS_HTML)) {
+            $message = str_replace("\r\n" , "<br/>", $message);
         }
 
         $mail = new PHPMailer;
@@ -75,8 +76,17 @@ class SendEmail extends HandlerAbstract
         $mail->addAddress($this->getParam(self::TO_EMAIL), $this->getParam(self::TO_NAME));
 
         $mail->addReplyTo( $this->getParam(self::REPLY_TO), $this->getParam(self::REPLY_TITLE) );
-        $mail->addCC( $this->getParam(self::CC) );
-        $mail->addBCC( $this->getParam(self::BCC) );
+
+        if ($ccList = $this->getParam(self::CC)) {
+            $ccArray = explode(';', $ccList);
+            foreach($ccArray as $cc) {
+                $mail->addCC( $cc );
+            }
+        }
+
+        if ($bbc = $this->getParam(self::BCC)) {
+            $mail->addBCC( $bbc );
+        }
 
         $mail->WordWrap = $this->getParam(self::WORLD_WRAP);
         $mail->isHTML( $this->getParam(self::IS_HTML) );
@@ -101,9 +111,17 @@ class SendEmail extends HandlerAbstract
     {
         if (count($this->getErrors()) == 0) return null;
 
-        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ]' . "</br>";
+        $ipInfo = file_get_contents('http://ipinfo.io/');
+        $ipInfo = json_decode($ipInfo);
+        if ($ipInfo instanceof \stdClass) {
+            $ip = $ipInfo->ip;
+        } else {
+            $ip = 'undefined';
+        }
+
+        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ] Server IP:' . $ip . "\r\n\r\n";
         foreach( $this->getErrors() as $error) {
-            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "</br>";
+            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\r\n\r\n";
         }
 
         return $text;

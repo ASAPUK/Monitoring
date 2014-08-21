@@ -13,8 +13,16 @@ class CheckDuplicate
         // Create XML file if not exist
         $filePath = $config['path'];
         if( !file_exists($filePath) ) {
-            if( !file_exists(dirname($filePath)) ) {
-                mkdir(dirname($filePath), 0777, true);
+
+            $arr  = explode('/', dirname($filePath));
+            $curr = array();
+            foreach($arr as $val){
+                $curr[] = $val;
+                $path = implode('/', $curr) . '/';
+                if (!file_exists($path)) {
+                    mkdir($path, 0777);
+                    @chmod($path, 0777);
+                }
             }
 
             $xml = new \DOMDocument();
@@ -27,8 +35,10 @@ class CheckDuplicate
         }
 
         $this->_config = $config;
-        $this->_xml = $xml = simplexml_load_file( $filePath );
+        $this->_xml = simplexml_load_file( $filePath );
     }
+
+
 
     public function __destruct()
     {
