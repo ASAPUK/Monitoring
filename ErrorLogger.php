@@ -37,10 +37,9 @@ class ErrorLogger extends \Monitoring\Singleton
 
         $error = array(
             'time'    => date($this->dateFormat),
-            'message' => $msg,
+            'message' => base64_encode($msg),
             'type'    => $type
         );
-
         $path = $this->getPath();
 
         $fp = fopen($path, 'a');
@@ -105,7 +104,7 @@ class ErrorLogger extends \Monitoring\Singleton
     private function getErrorsByType(array $types = array(self::ERROR, self::WARNING))
     {
         $result = array();
-        if (!$this->getEnabled()) return $result;
+        if (!$this->getEnabled() || !file_exists($this->getPath())) return $result;
 
         $delimiter = ",";
         $file = new \SplFileObject($this->getPath(), 'r');
@@ -127,7 +126,7 @@ class ErrorLogger extends \Monitoring\Singleton
 
     public function parseMessage(array $error)
     {
-        return isset($error[1]) ? $error[1] : null;
+        return isset($error[1]) ? base64_decode($error[1]) : null;
     }
 
     public function parseDate(array $error)
