@@ -42,9 +42,18 @@ class ErrorLogger extends \Monitoring\Singleton
         );
         $path = $this->getPath();
 
+        $changePerm = false;
+        if (!file_exists($path)) {
+            $changePerm = true;
+        }
+
         $fp = fopen($path, 'a');
         fputcsv($fp, $error);
         fclose($fp);
+
+        if ($changePerm) {
+            @chmod($path, 0777);
+        }
     }
 
     private function createPathIfNotExist()
@@ -58,8 +67,8 @@ class ErrorLogger extends \Monitoring\Singleton
                 $curr[] = $val;
                 $path = implode('/', $curr) . '/';
                 if ( !file_exists($path) ) {
-                    mkdir($path, 0766);
-                    @chmod($path, 0766);
+                    mkdir($path, 0777);
+                    @chmod($path, 0777);
                 }
             }
         }

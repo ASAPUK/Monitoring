@@ -33,7 +33,6 @@ class Log extends HandlerAbstract
     {
         if( !file_exists(dirname($file)) ) {
             $arr  = explode('/', dirname($file));
-            $curr = array();
             foreach($arr as $val){
                 $arr  = explode('/', dirname($file));
                 $curr = array();
