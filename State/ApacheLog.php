@@ -28,7 +28,7 @@ class ApacheLog extends StateAbstract
         if ( !file_exists($apacheLogFilePath) ) {
             $this->getHandler()->addErrorHandle(
                 "error.log was not found in '{$apacheLogFilePath}'",
-                time(),
+                '',
                 $this->getStateType()
             );
             return;
@@ -52,7 +52,7 @@ class ApacheLog extends StateAbstract
 
                 $type = $this->getParam(self::TYPE);
                 if (is_array($type) && in_array($line['type'], $type) && time() - $line['data'] < $this->getParam(self::TIME)) {
-                    $this->getHandler()->addErrorHandle( "{$line['text']}", $line['data'], $this->getStateType() );
+                    $this->getHandler()->addErrorHandle( "{$line['text']}", '', $this->getStateType() );
                 }
             }
         }

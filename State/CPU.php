@@ -25,7 +25,7 @@ class CPU extends StateAbstract
         if ($load[$this->getTime()] > $CPUProcessNumber ) {
             $this->getHandler()->addErrorHandle(
                 "Current CPU process number is {$load[$this->getTime()]}, when allowed is {$CPUProcessNumber}",
-                time(),
+                '',
                 $this->getStateType()
             );
         }

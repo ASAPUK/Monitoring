@@ -34,8 +34,8 @@ class FilePermission extends StateAbstract
                         continue;
                     } else {
                         $this->getHandler()->addErrorHandle(
-                            "Do not match permissions on file '{$file[self::FILE_PATH]}'. Current is '{$permsDecoct}', but should be '{$file[self::FILE_PERMS]}'",
-                            time(),
+                            "Do not match permissions on file",
+                            $file[self::FILE_PATH] . "Current is '{$permsDecoct}', but should be '{$file[self::FILE_PERMS]}'",
                             $this->getStateType()
                         );
                     }

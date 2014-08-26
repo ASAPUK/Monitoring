@@ -21,7 +21,7 @@ class DBConnection extends StateAbstract
         if(!$mysqlConnection) {
             $this->getHandler()->addErrorHandle(
                 "No Mysql Connection",
-                time(),
+                '',
                 $this->getStateType()
             );
         }

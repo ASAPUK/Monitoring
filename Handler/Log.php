@@ -56,8 +56,11 @@ class Log extends HandlerAbstract
         $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ]' . "\n";
         foreach( $this->getErrors() as $error) {
             $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\n";
+            if (!empty($error['trace'])) {
+                $text .= "Trace:\r\n" . $error['trace'] . "\r\n";
+            }
         }
-        $text .= "\n";
+        $text .= "\r\n";
 
         return $text;
     }

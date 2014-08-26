@@ -119,9 +119,13 @@ class SendEmail extends HandlerAbstract
             $ip = 'undefined';
         }
 
-        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ] Server IP:' . $ip . "\r\n\r\n";
+        $text = '[ ' . date('m/d/Y H:i:s', time()) . ' ] Server IP:' . $ip . "\r\n";
         foreach( $this->getErrors() as $error) {
-            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\r\n\r\n";
+            $text .= (isset($error['t']) ? $error['t'].': ' : '') .  $error['m'] . "\n";
+            if (!empty($error['trace'])) {
+                $text .= "Trace:\n" . $error['trace'] . "\n";
+            }
+            $text .= "\r\n";
         }
 
         return $text;

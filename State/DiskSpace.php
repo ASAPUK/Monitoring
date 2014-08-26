@@ -37,13 +37,13 @@ class DiskSpace extends StateAbstract
             if ( $this->getParam( self::TYPE ) == self::TYPE_PERCENT ) {
                 $this->getHandler()->addErrorHandle(
                     "Current Disk Space is {$diskSpace}%, when min allowed is {$diskSpaceMin}%",
-                    time(),
+                    '',
                     $this->getStateType()
                 );
             } else {
                 $this->getHandler()->addErrorHandle(
                     "Current Disk Space is {$this->convertBytes($diskSpace)}, when min allowed is {$this->convertBytes($diskSpaceMin)}",
-                    time(),
+                    '',
                     $this->getStateType()
                 );
             }

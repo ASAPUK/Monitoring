@@ -47,9 +47,9 @@ class YiiApplicationLog extends StateAbstract
             $date   = strtotime($this->showDate($l));
 
             if ( in_array($status, $allowedStatuses) && (time() - $date < $allowedTime) ) {
-                $error  = $this->showError($l) . $this->showStack($l);
+                $error  = $this->showError($l);
 
-                $this->getHandler()->addErrorHandle( $error, $date, $this->getStateType() );
+                $this->getHandler()->addErrorHandle( $error, $this->showStack($l), $this->getStateType() );
             }
         }
     }

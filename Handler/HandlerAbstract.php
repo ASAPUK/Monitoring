@@ -20,16 +20,16 @@ abstract class HandlerAbstract implements HandlerInterface
 
     /**
      * @param string $errorText
-     * @param null|time() $date
+     * @param string $trace
      * @param null|string $type
      */
-    public function addErrorHandle($errorText, $date = null, $type = null)
+    public function addErrorHandle($errorText, $trace = null, $type = null)
     {
         $hash = sha1($errorText);
 
         if ( !isset($this->_errors[$hash]) ){
             $this->_errors[$hash]['m'] = $errorText;
-            $this->_errors[$hash]['d'] = $date == null ? time() : $date;
+            $this->_errors[$hash]['trace'] = $trace;
             $this->_errors[$hash]['t'] = $type;
         }
     }
