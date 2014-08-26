@@ -32,15 +32,15 @@ class CheckDuplicate
 
             $xml->formatOutput = true;
             $xml->save($filePath);
+
+            @chmod($filePath, 0777);
         }
 
         $this->_config = $config;
         $this->_xml = simplexml_load_file( $filePath );
     }
 
-
-
-    public function __destruct()
+    public function saveFile()
     {
         $this->_xml->asXML($this->_config['path']);
     }
@@ -56,11 +56,12 @@ class CheckDuplicate
 
     public function checkByMsg($msg)
     {
-        $errors = $this->_xml->errors;
+        $xml    = (array)$this->_xml;
+        $errors = $xml['error'];
         $hash   = sha1($msg);
 
-        if (!in_array($hash, (array)$errors)) {
-            $this->_xml->errors[]= $hash;
+        if (!in_array($hash, $errors)) {
+            $this->_xml->error[]= $hash;
             return true;
         }
 

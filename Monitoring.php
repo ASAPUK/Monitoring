@@ -42,5 +42,6 @@ class Monitoring
         $stateList = new AlertStates( $handler, $this->_config[$stateConfig] );
 
         $stateList->verifyError();
+        $duplicate->saveFile();
     }
 }
