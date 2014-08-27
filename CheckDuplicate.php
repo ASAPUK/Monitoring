@@ -57,10 +57,9 @@ class CheckDuplicate
     public function checkByMsg($msg)
     {
         $xml    = (array)$this->_xml;
-        $errors = $xml['error'];
         $hash   = sha1($msg);
 
-        if (!in_array($hash, $errors)) {
+        if (isset($xml['error']) && !in_array($hash, $xml['error'])) {
             $this->_xml->error[]= $hash;
             return true;
         }

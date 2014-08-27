@@ -22,7 +22,11 @@ class ErrorLogger extends StateAbstract
 
         if ( count($errors) > 0 ) {
             foreach ($errors as $error) {
-                $this->getHandler()->addErrorHandle( $logger->parseMessage($error), '', $this->getStateType() );
+                $this->getHandler()->addErrorHandle(
+                    $logger->parseMessage($error),
+                    $logger->parseTrace($error),
+                    $this->getStateType()
+                );
             }
         }
 

@@ -29,7 +29,7 @@ class ErrorLogger extends \Monitoring\Singleton
         }
     }
 
-    public function handleError($msg, $type = self::ERROR)
+    public function handleError($msg, $trace = '', $type = self::ERROR)
     {
         if ( !$this->getEnabled() ) return;
 
@@ -38,7 +38,8 @@ class ErrorLogger extends \Monitoring\Singleton
         $error = array(
             'time'    => date($this->dateFormat),
             'message' => base64_encode($msg),
-            'type'    => $type
+            'type'    => $type,
+            'trace'   => base64_encode($trace)
         );
         $path = $this->getPath();
 
@@ -141,5 +142,10 @@ class ErrorLogger extends \Monitoring\Singleton
     public function parseDate(array $error)
     {
         return isset($error[0]) ? $error[0] : null;
+    }
+
+    public function parseTrace(array $error)
+    {
+        return isset($error[3]) ? base64_decode($error[3]) : null;
     }
 }
