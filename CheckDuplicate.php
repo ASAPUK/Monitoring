@@ -43,6 +43,8 @@ class CheckDuplicate
     public function saveFile()
     {
         $this->_xml->asXML($this->_config['path']);
+        @chmod($this->_config['path'], 0777);
+
     }
 
     public function check($msg, $type = null)

@@ -26,6 +26,8 @@ class Log extends HandlerAbstract
             $fp = fopen($path, "a");
             fwrite($fp, $text);
             fclose($fp);
+
+            @chmod($path, 0777);
         }
     }
 
