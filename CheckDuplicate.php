@@ -61,12 +61,12 @@ class CheckDuplicate
         $xml    = (array)$this->_xml;
         $hash   = sha1($msg);
 
-        if (isset($xml['error']) && !in_array($hash, $xml['error'])) {
-            $this->_xml->error[]= $hash;
-            return true;
+        if (isset($xml['error']) && is_array($xml['error']) && in_array($hash, $xml['error'])) {
+            return false;
         }
 
-        return false;
+        $this->_xml->error[]= $hash;
+        return true;
     }
 
     public function checkByType($type)
