@@ -18,8 +18,9 @@ class AlertHandlers extends HandlerAbstract
     /**
      * @param array $config
      * @param CheckDuplicate $duplicate
+     * @param string $base_path
      */
-    public function __construct($config = array(), CheckDuplicate $duplicate = null)
+    public function __construct($config = array(), CheckDuplicate $duplicate = null, $base_path = __DIR__)
     {
         $this->_config = $config;
         $this->_storage = new SplObjectStorage();
@@ -27,15 +28,14 @@ class AlertHandlers extends HandlerAbstract
 
         if ( count($config) > 0 ) {
             foreach ($config as $handlerConfig) {
+                if (isset($handlerConfig['params'])) {
+                    $handlerConfig['params']['base_path'] = $base_path;
+                } else {
+                    $handlerConfig['params'] = array('base_path' => $base_path);
+                }
+
                 $handler = HandlerFactory::getInstance()->createByConfig( $handlerConfig );
                 if ( $handler instanceof HandlerInterface ) {
-
-                    if (isset($handlerConfig['params'])) {
-                        $handlerConfig['params']['base_path'] = $config['base_path'];
-                    } else {
-                        $handlerConfig['params'] = array('base_path' => $config['base_path']);
-                    }
-
                     $this->attach( $handler );
                 }
             }

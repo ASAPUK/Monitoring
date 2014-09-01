@@ -41,9 +41,7 @@ class Monitoring
             $duplicate = new CheckDuplicate($this->_config['duplicate']);
         }
 
-        $this->_config[$handlerConfig]['base_path'] = $this->_basePath;
-
-        $handler   = new AlertHandlers( $this->_config[$handlerConfig], $duplicate );
+        $handler   = new AlertHandlers( $this->_config[$handlerConfig], $duplicate, $this->_basePath );
         $stateList = new AlertStates( $handler, $this->_config[$stateConfig], $this->_basePath );
 
         $stateList->verifyError();
