@@ -14,7 +14,7 @@ class FeedLog extends StateAbstract
 
     public function verifyError()
     {
-        $path = $this->getParam(self::PATH);
+        $path = $this->getBasePath() . $this->getParam(self::PATH);
 
         if ( !file_exists($path) ) {
             return;

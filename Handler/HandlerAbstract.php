@@ -65,5 +65,10 @@ abstract class HandlerAbstract implements HandlerInterface
         return $this->_errors;
     }
 
+    public function getBasePath()
+    {
+        return $this->getParam('base_path', __DIR__);
+    }
+
     abstract function handleErrors();
 }

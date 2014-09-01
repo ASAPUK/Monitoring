@@ -14,7 +14,9 @@ class Monitoring
      */
     public function __construct( $config = array(), $handlerConfig = self::HANDLERS, $stateConfig = self::STATES )
     {
+        $this->_basePath = isset($config['base_path']) ? $config['base_path'] : __DIR__;
         $this->_config = $config;
+
         $this->monitoring($handlerConfig, $stateConfig);
     }
 
@@ -35,11 +37,14 @@ class Monitoring
 
         $duplicate = null;
         if( $this->_config['duplicate'] ) {
+            $this->_config['duplicate']['base_path'] = $this->_basePath;
             $duplicate = new CheckDuplicate($this->_config['duplicate']);
         }
 
+        $this->_config[$handlerConfig]['base_path'] = $this->_basePath;
+
         $handler   = new AlertHandlers( $this->_config[$handlerConfig], $duplicate );
-        $stateList = new AlertStates( $handler, $this->_config[$stateConfig] );
+        $stateList = new AlertStates( $handler, $this->_config[$stateConfig], $this->_basePath );
 
         $stateList->verifyError();
         $duplicate->saveFile();

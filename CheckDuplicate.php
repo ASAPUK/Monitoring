@@ -10,8 +10,10 @@ class CheckDuplicate
 
     public function  __construct( $config )
     {
+        $this->_config = $config;
+
         // Create XML file if not exist
-        $filePath = $config['path'];
+        $filePath = $this->getPath();
         if( !file_exists($filePath) ) {
 
             $arr  = explode('/', dirname($filePath));
@@ -36,14 +38,14 @@ class CheckDuplicate
             @chmod($filePath, 0777);
         }
 
-        $this->_config = $config;
         $this->_xml = simplexml_load_file( $filePath );
     }
 
     public function saveFile()
     {
-        $this->_xml->asXML($this->_config['path']);
-        @chmod($this->_config['path'], 0777);
+        $filePath = $this->getPath();
+        $this->_xml->asXML($filePath);
+        @chmod($filePath, 0777);
 
     }
 
@@ -77,6 +79,11 @@ class CheckDuplicate
         }
 
         return false;
+    }
+
+    public function getPath()
+    {
+        return $this->_config['base_path'] . $this->_config['path'];
     }
 
     private function getTime($type)

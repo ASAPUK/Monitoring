@@ -77,7 +77,7 @@ class ErrorLogger extends \Monitoring\Singleton
 
     public function clearFile()
     {
-        if (!$this->getEnabled()) return;
+        if (!$this->getEnabled() && file_exists($this->getPath())) return;
 
         $fp = fopen($this->getPath(), 'w');
         fputcsv($fp, array());

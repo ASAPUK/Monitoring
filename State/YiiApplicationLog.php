@@ -24,7 +24,7 @@ class YiiApplicationLog extends StateAbstract
 
     public function verifyError()
     {
-        $path = $this->getParam(self::PATH, null);
+        $path = $this->getBasePath() . $this->getParam(self::PATH, null);
         $allowedStatuses = $this->getParam(self::STATUS);
 
         if (!file_exists($path)) return;

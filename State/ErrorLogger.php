@@ -16,7 +16,9 @@ class ErrorLogger extends StateAbstract
     public function verifyError()
     {
         $logger = MErrorLogger::getInstance();
-        $logger->setConfig($this->getParams());
+        $config = $this->getParams();
+        $config['path']  = $this->getBasePath() . $config['path'];
+        $logger->setConfig($config);
 
         $errors = $logger->getErrors();
 

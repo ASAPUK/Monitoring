@@ -27,13 +27,21 @@ class AlertStates extends StateAbstract
     /**
      * @param HandlerInterface $handler
      * @param array $states
+     * @param string $base_path
      */
-    public function __construct( HandlerInterface $handler, $states = array() )
+    public function __construct( HandlerInterface $handler, $states = array(), $base_path = __DIR__ )
     {
         $this->_handler = $handler;
 
         if ( count($states) > 0 ) {
             foreach ($states as $stateConfig) {
+
+                if (isset($stateConfig['params'])) {
+                    $stateConfig['params']['base_path'] = $base_path;
+                } else {
+                    $stateConfig['params'] = array('base_path' => $base_path);
+                }
+
                 $state = StateFactory::getInstance()->createByConfig( $this->_handler, $stateConfig );
                 if ( $state instanceof StateInterface ) {
                     $this->addState( $state );

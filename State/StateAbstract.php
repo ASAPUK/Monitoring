@@ -84,5 +84,10 @@ abstract class StateAbstract implements StateInterface
         return get_class($this);
     }
 
+    public function getBasePath()
+    {
+        return $this->getParam('base_path', __DIR__);
+    }
+
     abstract public function verifyError();
 }

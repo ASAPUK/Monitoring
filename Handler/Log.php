@@ -17,7 +17,7 @@ class Log extends HandlerAbstract
 
     public function handleErrors()
     {
-        $path = $this->getParam(self::PATH);
+        $path = $this->getBasePath() . $this->getParam(self::PATH);
         $this->createDirIfNotExist( $path );
 
         $text = $this->generateText();

@@ -29,6 +29,13 @@ class AlertHandlers extends HandlerAbstract
             foreach ($config as $handlerConfig) {
                 $handler = HandlerFactory::getInstance()->createByConfig( $handlerConfig );
                 if ( $handler instanceof HandlerInterface ) {
+
+                    if (isset($handlerConfig['params'])) {
+                        $handlerConfig['params']['base_path'] = $config['base_path'];
+                    } else {
+                        $handlerConfig['params'] = array('base_path' => $config['base_path']);
+                    }
+
                     $this->attach( $handler );
                 }
             }
