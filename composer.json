@@ -15,16 +15,16 @@
             "email": "hyperxai@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=5.3.2",
+        "phpmailer/phpmailer" : "master"
+    },
     "repositories": [
         {
             "url": "https://github.com/ASAPUK/PHPMailer",
             "type": "git"
         }
     ],
-    "require": {
-        "php": ">=5.3.2",
-        "phpmailer/phpmailer" : "master"
-    },
     "autoload": {
         "psr-4": { "Monitoring\\": "/" }
     }
