@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "phpmailer/phpmailer" : "master"
+        "PHPMailer" : "master"
     },
     "repositories": [
         {
