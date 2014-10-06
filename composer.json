@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "ASAPUK/PHPMailer": "master"
+        "phpmailer/phpmailer": "master"
     },
     "repositories": [
         {
